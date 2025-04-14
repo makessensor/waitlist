@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Sensor | Automate Your IBC Stock Checks</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --gray: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        header {
+            padding: 1rem 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            padding: 1.5rem 0 2rem;
+            gap: 2rem;
+        }
+        
+        .calculator-section {
+            flex: 2; /* Changed from 1 to 2 to make calculator wider */
+        }
+        
+        .sidebar {
+            flex: 2;
+        }
+        
+        .hero {
+            padding: 1.5rem 0 0.5rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .calculator {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 1.75rem;
+        }
+        
+        .calculator h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 3px;
+        }
+        
+        input[type="number"] {
+            width: 70px;
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .results {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .result-box {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        .cost-explanation {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .highlight {
+            color: var(--primary);
+        }
+        
+        .waitlist {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 1.75rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .waitlist h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .google-form-container {
+            flex: 1;
+            overflow: visible;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        
+        input[type="email"] {
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .pricing-info {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            color: var(--gray);
+            background-color: white;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: #dbeafe;
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 900px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            iframe {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">MS</div>
+                Makes Sensor
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>Automate Your IBC Stock Checks</h1>
+                <p class="subtitle"><span class="badge">Low-cost</span> sensors at £20 per IBC to save time and money on manual IBC stock checks.</p>
+            </section>
+            
+            <div class="content-wrapper">
+                <section class="calculator-section">
+                    <div class="calculator">
+                        <h2>Calculate Your Savings</h2>
+                        <p style="margin-bottom: 1rem; font-size: 0.95rem;">See how much time and money Make Sensor's automation solution could save you.</p>
+                        
+                        <div class="pricing-info">
+                            <strong>Our pricing:</strong> £10 per IBC per year subscription + one-time £20 per IBC sensor cost
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="ibc-count">Number of IBCs</label>
+                            <div class="slider-container">
+                                <input type="range" id="ibc-count" min="1" max="100" value="10" oninput="updateNumberInput('ibc-count-number', this.value); calculateSavings()">
+                                <input type="number" id="ibc-count-number" min="1" max="100" value="10" oninput="updateRangeInput('ibc-count', this.value); calculateSavings()">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="checks-per-month">Stock Checks Per Month</label>
+                            <div class="slider-container">
+                                <input type="range" id="checks-per-month" min="1" max="30" value="4" oninput="updateNumberInput('checks-number', this.value); calculateSavings()">
+                                <input type="number" id="checks-number" min="1" max="30" value="4" oninput="updateRangeInput('checks-per-month', this.value); calculateSavings()">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="hourly-rate">Hourly Rate (£/hour)</label>
+                            <div class="slider-container">
+                                <input type="range" id="hourly-rate" min="15" max="50" value="25" oninput="updateNumberInput('rate-number', this.value); calculateSavings()">
+                                <input type="number" id="rate-number" min="15" max="50" value="25" oninput="updateRangeInput('hourly-rate', this.value); calculateSavings()">
+                            </div>
+                        </div>
+                        
+                        <div class="results">
+                            <div class="grid">
+                                <div class="result-box">
+                                    <span class="result-label">Annual Time Spent</span>
+                                    <span class="result-value" id="annual-time">20 hours</span>
+                                </div>
+                                <div class="result-box">
+                                    <span class="result-label">Annual Cost of Manual Checks</span>
+                                    <span class="result-value" id="annual-cost">£500</span>
+                                </div>
+                            </div>
+                            
+                            <div class="result-box" style="text-align: center; background-color: #ecfdf5; border: 1px solid #d1fae5;">
+                                <span class="result-label">Net Annual Savings with Make Sensor</span>
+                                <span class="result-value highlight" id="savings">£400</span>
+                                <span class="cost-explanation" id="cost-breakdown">After £100 annual subscription (10 IBCs × £10)</span>
+                            </div>
+                            
+                            <div class="result-box" style="text-align: center; background-color: #f7fee7; border: 1px solid #dcfce7;">
+                                <span class="result-label">First Year Investment</span>
+                                <span class="result-value" id="first-year-investment">£300</span>
+                                <span class="cost-explanation" id="investment-breakdown">£200 for sensors + £100 annual subscription</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="sidebar">
+                    <div class="waitlist">
+                        <h2>Be First in Line</h2>
+                        <p style="margin-bottom: 1rem; font-size: 0.95rem;">Join our waitlist to be notified when Make Sensor launches.</p>
+                        <div class="google-form-container">
+                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjMjVaKsQ8fHehJhSJIRMQ1m9C5CB9agm2LgEhwYUAept_hg/viewform?embedded=true" width="640" height="689" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>    
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Make Sensor. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        function updateNumberInput(id, value) {
+            document.getElementById(id).value = value;
+        }
+        
+        function updateRangeInput(id, value) {
+            document.getElementById(id).value = value;
+        }
+        
+        function calculateSavings() {
+            // Get input values
+            const ibcCount = parseInt(document.getElementById('ibc-count').value);
+            const checksPerMonth = parseInt(document.getElementById('checks-per-month').value);
+            const hourlyRate = parseInt(document.getElementById('hourly-rate').value);
+            
+            // Calculate time (10 minutes per IBC per check)
+            const minutesPerCheck = ibcCount * 10;
+            const minutesPerMonth = minutesPerCheck * checksPerMonth;
+            const hoursPerYear = (minutesPerMonth * 12) / 60;
+            
+            // Calculate manual process cost
+            const manualCost = hoursPerYear * hourlyRate;
+            
+            // Calculate Make Sensor costs
+            const annualSubscription = ibcCount * 10; // Fixed from 15 to 10 to match pricing
+            const sensorCost = ibcCount * 20; // £20 per IBC one-time cost
+            
+            // Calculate net savings
+            const netSavings = manualCost - annualSubscription;
+            const firstYearInvestment = sensorCost + annualSubscription;
+            
+            // Update display
+            document.getElementById('annual-time').textContent = Math.round(hoursPerYear) + ' hours';
+            document.getElementById('annual-cost').textContent = '£' + Math.round(manualCost);
+            document.getElementById('savings').textContent = '£' + Math.round(netSavings);
+            document.getElementById('cost-breakdown').textContent = 'After £' + annualSubscription + ' annual subscription (' + ibcCount + ' IBCs × £10)';
+            document.getElementById('first-year-investment').textContent = '£' + firstYearInvestment;
+            document.getElementById('investment-breakdown').textContent = '£' + sensorCost + ' for sensors + £' + annualSubscription + ' annual subscription';
+        }
+        
+        // Initial calculation
+        calculateSavings();
+    </script>
+</body>
+</html>
