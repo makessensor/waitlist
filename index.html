@@ -74,14 +74,17 @@
             flex: 1;
             padding: 1.5rem 0 2rem;
             gap: 2rem;
+          
         }
         
         .calculator-section {
             flex: 2; /* Changed from 1 to 2 to make calculator wider */
+            height:1000px;
         }
         
         .sidebar {
             flex: 2;
+            height:1000px;
         }
         
         .hero {
@@ -109,11 +112,18 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             padding: 1.75rem;
+            height: 1000px;
         }
         
         .calculator h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 1.5rem 0;
         }
         
         .input-group {
@@ -208,12 +218,13 @@
         
         .google-form-container {
             flex: 1;
-            overflow: visible;
+            height: 1000px;
+            
         }
         
         iframe {
             width: 100%;
-            height: 600px;
+            height: 800px;
             border: none;
         }
         
@@ -304,44 +315,45 @@
         <div class="container">
             <section class="hero">
                 <h1>Automate Your IBC Stock Checks</h1>
-                <p class="subtitle"><span class="badge">Low-cost</span> sensors at £20 per IBC to save time and money on manual IBC stock checks.</p>
+                <p class="subtitle"><span class="badge">Low-cost</span> sensors at £30 per IBC to save time and money on manual IBC stock checks.</p>
             </section>
             
             <div class="content-wrapper">
                 <section class="calculator-section">
                     <div class="calculator">
                         <h2>Calculate Your Savings</h2>
-                        <p style="margin-bottom: 1rem; font-size: 0.95rem;">See how much time and money Make Sensor's automation solution could save you.</p>
+                        <!-- <p style="margin-bottom: 1rem; font-size: 0.95rem;">See how much time and money Make Sensor's automation solution could save you.</p> -->
                         
-                        <div class="pricing-info">
-                            <strong>Our pricing:</strong> £10 per IBC per year subscription + one-time £20 per IBC sensor cost
-                        </div>
+                        <div class="section-divider"></div>
                         
                         <div class="input-group">
-                            <label for="ibc-count">Number of IBCs</label>
+                            <label for="ibc-count">How many IBCs do you have</label>
                             <div class="slider-container">
-                                <input type="range" id="ibc-count" min="1" max="100" value="10" oninput="updateNumberInput('ibc-count-number', this.value); calculateSavings()">
-                                <input type="number" id="ibc-count-number" min="1" max="100" value="10" oninput="updateRangeInput('ibc-count', this.value); calculateSavings()">
+                                <input type="range" id="ibc-count" min="1" max="1000" value="10" oninput="updateNumberInput('ibc-count-number', this.value); calculateSavings()">
+                                <input type="number" id="ibc-count-number" min="1" max="1000" value="10" oninput="updateRangeInput('ibc-count', this.value); calculateSavings()">
                             </div>
                         </div>
                         
                         <div class="input-group">
-                            <label for="checks-per-month">Stock Checks Per Month</label>
+                            <label for="checks-per-month">How many stock checks do you currently take monthly</label>
                             <div class="slider-container">
-                                <input type="range" id="checks-per-month" min="1" max="30" value="4" oninput="updateNumberInput('checks-number', this.value); calculateSavings()">
-                                <input type="number" id="checks-number" min="1" max="30" value="4" oninput="updateRangeInput('checks-per-month', this.value); calculateSavings()">
+                                <input type="range" id="checks-per-month" min="1" max="30" value="1" oninput="updateNumberInput('checks-number', this.value); calculateSavings()">
+                                <input type="number" id="checks-number" min="1" max="30" value="1" oninput="updateRangeInput('checks-per-month', this.value); calculateSavings()">
                             </div>
                         </div>
                         
                         <div class="input-group">
-                            <label for="hourly-rate">Hourly Rate (£/hour)</label>
+                            <label for="hourly-rate">Your staff cost per hour (£)</label>
                             <div class="slider-container">
-                                <input type="range" id="hourly-rate" min="15" max="50" value="25" oninput="updateNumberInput('rate-number', this.value); calculateSavings()">
-                                <input type="number" id="rate-number" min="15" max="50" value="25" oninput="updateRangeInput('hourly-rate', this.value); calculateSavings()">
+                                <input type="range" id="hourly-rate" min="15" max="50" value="20" oninput="updateNumberInput('rate-number', this.value); calculateSavings()">
+                                <input type="number" id="rate-number" min="15" max="50" value="20" oninput="updateRangeInput('hourly-rate', this.value); calculateSavings()">
                             </div>
                         </div>
+                        
+                        <div class="section-divider"></div>
                         
                         <div class="results">
+                            <h2>Current time and cost</h2>
                             <div class="grid">
                                 <div class="result-box">
                                     <span class="result-label">Annual Time Spent</span>
@@ -353,16 +365,19 @@
                                 </div>
                             </div>
                             
+                            <div class="section-divider"></div>
+                            
+                            <h2>Savings with Makes Sensor</h2>
                             <div class="result-box" style="text-align: center; background-color: #ecfdf5; border: 1px solid #d1fae5;">
                                 <span class="result-label">Net Annual Savings with Make Sensor</span>
-                                <span class="result-value highlight" id="savings">£400</span>
+                                <span class="result-value highlight" id="savings">£400/yr</span>
                                 <span class="cost-explanation" id="cost-breakdown">After £100 annual subscription (10 IBCs × £10)</span>
                             </div>
                             
                             <div class="result-box" style="text-align: center; background-color: #f7fee7; border: 1px solid #dcfce7;">
                                 <span class="result-label">First Year Investment</span>
                                 <span class="result-value" id="first-year-investment">£300</span>
-                                <span class="cost-explanation" id="investment-breakdown">£200 for sensors + £100 annual subscription</span>
+                                <span class="cost-explanation" id="investment-breakdown">£300 for sensors + £100 annual subscription</span>
                             </div>
                         </div>
                     </div>
@@ -370,10 +385,10 @@
                 
                 <section class="sidebar">
                     <div class="waitlist">
-                        <h2>Be First in Line</h2>
-                        <p style="margin-bottom: 1rem; font-size: 0.95rem;">Join our waitlist to be notified when Make Sensor launches.</p>
+                        <h2>Join our waitlist to be notified when Make Sensor launches.</h2>
+                        <!-- <p style="margin-bottom: 1rem; font-size: 0.95rem;">Join our waitlist to be notified when Make Sensor launches.</p> -->
                         <div class="google-form-container">
-                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjMjVaKsQ8fHehJhSJIRMQ1m9C5CB9agm2LgEhwYUAept_hg/viewform?embedded=true" width="640" height="689" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>    
+                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjMjVaKsQ8fHehJhSJIRMQ1m9C5CB9agm2LgEhwYUAept_hg/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                         </div>
                     </div>
                 </section>
@@ -412,7 +427,7 @@
             
             // Calculate Make Sensor costs
             const annualSubscription = ibcCount * 10; // Fixed from 15 to 10 to match pricing
-            const sensorCost = ibcCount * 20; // £20 per IBC one-time cost
+            const sensorCost = ibcCount * 30; // £30 per IBC one-time cost
             
             // Calculate net savings
             const netSavings = manualCost - annualSubscription;
@@ -421,7 +436,7 @@
             // Update display
             document.getElementById('annual-time').textContent = Math.round(hoursPerYear) + ' hours';
             document.getElementById('annual-cost').textContent = '£' + Math.round(manualCost);
-            document.getElementById('savings').textContent = '£' + Math.round(netSavings);
+            document.getElementById('savings').textContent = '£' + Math.round(netSavings) + '/yr';
             document.getElementById('cost-breakdown').textContent = 'After £' + annualSubscription + ' annual subscription (' + ibcCount + ' IBCs × £10)';
             document.getElementById('first-year-investment').textContent = '£' + firstYearInvestment;
             document.getElementById('investment-breakdown').textContent = '£' + sensorCost + ' for sensors + £' + annualSubscription + ' annual subscription';
