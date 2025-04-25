@@ -315,7 +315,7 @@
         <div class="container">
             <section class="hero">
                 <h1>Automate Your IBC Stock Checks</h1>
-                <p class="subtitle"><span class="badge">Low-cost</span> sensors at £30 per IBC to save time and money on manual IBC stock checks.</p>
+                <p class="subtitle"><span class="badge">Low-cost</span> sensors at £50 per IBC to save time and money on manual IBC stock checks.</p>
             </section>
             
             <div class="content-wrapper">
@@ -371,13 +371,13 @@
                             <div class="result-box" style="text-align: center; background-color: #ecfdf5; border: 1px solid #d1fae5;">
                                 <span class="result-label">Net Annual Savings with Make Sensor</span>
                                 <span class="result-value highlight" id="savings">£400/yr</span>
-                                <span class="cost-explanation" id="cost-breakdown">After £100 annual subscription (10 IBCs × £10)</span>
+                                <span class="cost-explanation" id="cost-breakdown">After £120 annual subscription (10 IBCs × £12)</span>
                             </div>
                             
                             <div class="result-box" style="text-align: center; background-color: #f7fee7; border: 1px solid #dcfce7;">
                                 <span class="result-label">First Year Investment</span>
-                                <span class="result-value" id="first-year-investment">£300</span>
-                                <span class="cost-explanation" id="investment-breakdown">£300 for sensors + £100 annual subscription</span>
+                                <span class="result-value" id="first-year-investment">£500</span>
+                                <span class="cost-explanation" id="investment-breakdown">£500 for sensors + £120 annual subscription</span>
                             </div>
                         </div>
                     </div>
@@ -426,8 +426,8 @@
             const manualCost = hoursPerYear * hourlyRate;
             
             // Calculate Make Sensor costs
-            const annualSubscription = ibcCount * 10; // Fixed from 15 to 10 to match pricing
-            const sensorCost = ibcCount * 30; // £30 per IBC one-time cost
+            const annualSubscription = ibcCount * 12; // Updated from 10 to 12 per IBC
+            const sensorCost = ibcCount * 50; // Updated from 30 to 50 per IBC one-time cost
             
             // Calculate net savings
             const netSavings = manualCost - annualSubscription;
@@ -437,7 +437,7 @@
             document.getElementById('annual-time').textContent = Math.round(hoursPerYear) + ' hours';
             document.getElementById('annual-cost').textContent = '£' + Math.round(manualCost);
             document.getElementById('savings').textContent = '£' + Math.round(netSavings) + '/yr';
-            document.getElementById('cost-breakdown').textContent = 'After £' + annualSubscription + ' annual subscription (' + ibcCount + ' IBCs × £10)';
+            document.getElementById('cost-breakdown').textContent = 'After £' + annualSubscription + ' annual subscription (' + ibcCount + ' IBCs × £12)';
             document.getElementById('first-year-investment').textContent = '£' + firstYearInvestment;
             document.getElementById('investment-breakdown').textContent = '£' + sensorCost + ' for sensors + £' + annualSubscription + ' annual subscription';
         }
